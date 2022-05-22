@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>BMI hesaplama</title>
+  </head>
+  <style>
+#bmi-box{
+    background-image: linear-gradient(120deg,#ff6b6b, #5f27cd);
+    color:  #fff;
+    width: 80%;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    padding: 20px;
+    border-radius: 25px;
+}
+#bmi-calculater h2{
+    text-align: center;
+    margin-bottom: 90px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 50px;
+}
+.row{
+    margin-bottom: 25px;
+}
+
+#bmi-result{
+    text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 34px;
+    margin-top: 8%;
+    
+}
+
+#bmi-info{
+    text-align: center;
+    margin-top: 100px;
+}
+#bmi-info .row .col-md-3 {
+    padding-top: 20px;
+}
+#bmi-info .row .col-md-2:nth-child(1){
+    background-color: #2196f3;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+#bmi-info .row .col-md-2:nth-child(2){
+    background-color: #43a047;
+}
+#bmi-info .row .col-md-2:nth-child(3){
+    background-color: #fb8c00;
+}
+#bmi-info .row .col-md-2:nth-child(4){
+    background-color: #ff4000;
+
+}
+#bmi-info .row .col-md-2:nth-child(5){
+    background-color: #c62828;
+    
+}
+#bmi-info .row .col-md-2:nth-child(6){
+    background-color: #4d0000;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
+  </style>
+  <body>
+    <div class="container">
+        <div id="bmi-box">
+            <div id="bmi-calculater">
+                <h2>BMI Hesaplama</h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Ağırlığınız (kg)</p>
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" id="weight" type="number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                       <p> Boyunuz (m) </p>
+                        <span class="badge bg-danger">Lütfen metre cinsinden giriniz(1.80)</span>
+                       
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" id="height" type="number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block" onclick="CalculateBMI();">Hesapla</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-danger btn-block" onclick="Reset();">Verileri temizle</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bmi-result">
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <p id="result">Sonuç</p>
+                        <p id="result-statu">Alanı</p>
+                        
+
+                    </div>
+                </div>
+            </div>
+            <div id="bmi-info">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>< 18.5</p>
+                        <p>Zayıfsınız</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p> 18.5 - 24.9</p>
+                        <p>Normal kilonuzdasınız</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p> 25 - 29.9</p>
+                        <p>Fazla Kilolusunuz</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>30 - 34.9</p>
+                        <p>Şişman Birinci derece obezsiniz</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>35 - 44.9</p>
+                        <p>Şişman İkinci derece obezsiniz</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>>45</p>
+                        <p>Aşırı şişmansınız</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>function CalculateBMI(){
+        var weight = document.getElementById('weight').value;
+        var height = document.getElementById('height').value;
+    
+        var result= weight/Math.pow(height,2);
+    
+        document.getElementById('result').innerText=result.toFixed(2);
+    
+        if(result<18.5){
+            document.getElementById('result-statu').innerText="Zayıfsınız";
+            document.getElementById('result-statu').style.color='#2196f3';
+        }
+        else if(result>=18.5 && result<24.9){
+            document.getElementById('result-statu').innerText="Normal Kilonuzdasınız";
+            document.getElementById('result-statu').style.color="#00cc00";
+        }
+        else if(result>=25 && result<29.9){
+            document.getElementById('result-statu').innerText="Fazla Kilolusunuz";
+            document.getElementById('result-statu').style.color="#c62828";
+        }
+        else if(result>=30 && result<34.9){
+            document.getElementById('result-statu').innerText="Şişman Birinci derece obezsiniz";
+            document.getElementById('result-statu').style.color="#c62828";
+        }
+        else if(result>=35 && result<44.9){
+            document.getElementById('result-statu').innerText="Şişman İkinci derece obezsiniz";
+            document.getElementById('result-statu').style.color="#c62828";
+        }
+        else if (result>=45){
+            document.getElementById('result-statu').innerText="Aşırı şişmansınız";
+            document.getElementById('result-statu').style.color="#c62828";
+        }
+    }
+    
+    function Reset(){
+        document.getElementById('weight').value=0;
+        document.getElementById('height').value=0;
+        document.getElementById('result').innerText='';
+        document.getElementById('result-statu').innerText='';
+    }</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    
+  </body>
+</html>
